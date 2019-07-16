@@ -1,0 +1,6 @@
+.DS_Store
+!.gitkeep
+.docker/es/data/*
+.docker/mysql/data/*
+.docker/mongo/data/*
+tmp

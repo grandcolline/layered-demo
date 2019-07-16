@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  # App (アプリケーション)
+  app:
+    build:
+      context: .
+      target: develop
+    volumes:
+      - .:/go/src/github.com/grandcolline/layered-demo:cached
+      # --- exclude volums ---
+      - /go/src/github.com/grandcolline/layered-demo/.docker/
+      - /go/src/github.com/grandcolline/layered-demo/.git/
+    environment:
+      # --- MySQLの設定 ---
+      MYSQL_HOST: "mysql"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: ""
+      MYSQL_DATABASE: "app"
+      MYSQL_LOGMODE: "true"
+      MYSQL_AUTOMIGRATE: "true"
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+
+  # MySQL (データベース)
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: "app"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - .docker/mysql/data:/var/lib/mysql:cached
+      - .docker/mysql/conf:/etc/mysql/conf.d:cached
+    ports:
+      - 3306:3306
