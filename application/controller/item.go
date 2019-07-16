@@ -69,12 +69,7 @@ func (ctl *ItemCtl) FindByID(r *http.Request) (int, []byte) {
 	id := chi.URLParam(r, "ID")
 
 	// TODO: 商品検索のビジネスロジック（商品サービス）を実行
-	res, err := ctl.ItemSvc.FindByID(id)
-	if err != nil {
-		return response.ServerErrorRender()
-	}
 
 	// TODO: レスポンスを返す
-	// return 200, []byte("id:" + id)
-	return response.ItemRender(res)
+	return 200, []byte("まだ未実装（id:" + id + "）")
 }

@@ -59,20 +59,4 @@ func (repo *ItemRepoImpl) FindAll() (*[]entity.Item, error) {
 	return &ent, nil
 }
 
-func (repo *ItemRepoImpl) FindByID(id string) (*entity.Item, error) {
-	var item entity.Item
-	i, _ := strconv.Atoi(id)
-	if err := repo.Conn.First(&item, uint32(i)).Error; err != nil {
-		return nil, err
-	}
-	return &item, nil
-}
-
-func (repo *ItemRepoImpl) AddAccess(id string) error {
-	i, _ := strconv.Atoi(id)
-	err := repo.Conn.First(&model.ItemMdl{}, uint32(i)).UpdateColumn("access_count", gorm.Expr("access_count + ?", 1)).Error
-	if err != nil {
-		return err
-	}
-	return nil
-}
+// TODO: ここに実実装を実装

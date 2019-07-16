@@ -45,24 +45,4 @@ func (svc *ItemSvc) FindAll() (*[]entity.Item, error) {
 	return items, nil
 }
 
-// FindByID は商品をIDで検索します
-func (svc *ItemSvc) FindByID(id string) (*entity.Item, error) {
-
-	// IDで商品をデータストアから取得
-	item, err := svc.repo.FindByID(id)
-	if err != nil {
-		return nil, err
-	}
-
-	// もし、購入期間前なら金額を0円にする
-	if time.Now().Before(item.SaleStartDate) {
-		item.Price = 0
-	}
-
-	// アクセス履歴を登録する
-	if err := svc.repo.AddAccess(item.ID); err != nil {
-		return nil, err
-	}
-
-	return item, nil
-}
+// TODO: ここにドメインロジックをかく

@@ -8,8 +8,5 @@ type ItemRepo interface {
 	Store(*entity.Item) (*entity.Item, error)
 	// FindAll 商品の全権検索
 	FindAll() (*[]entity.Item, error)
-	// FindByID 商品をIDで検索
-	FindByID(string) (*entity.Item, error)
-	// AddAccess アクセスの追加
-	AddAccess(string) error
+	// TODO: ここにインターフェースを定義
 }
