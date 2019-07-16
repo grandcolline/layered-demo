@@ -9,6 +9,8 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+var db *gorm.DB
+
 // mysqlConnect はMySQLに接続します
 func mysqlConnect() (db *gorm.DB) {
 	var err error
