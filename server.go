@@ -37,7 +37,7 @@ func healthRouter() http.Handler {
 // `/items` でルーティングされる
 func itemRouter() http.Handler {
 	// 商品レジストリの作成
-	conn := mysqlConnect()
+	conn := mongoConnect()
 	itemRepo := datastore.NewItemRepoImpl(conn)
 
 	// 商品コントローラの作成

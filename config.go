@@ -37,3 +37,20 @@ func (conf *mysqlConf) init() {
 		log.Fatal(err.Error())
 	}
 }
+
+// mongoConf mongoDB設定
+type mongoConf struct {
+	Host     string `required:"true"` // 接続先ホスト
+	Port     string `default:"27017"` // 接続先ポート
+	User     string `required:"true"` // DB接続ユーザ
+	Password string `required:"true"` // DB接続パスワード
+	Database string `required:"true"` // データベース名
+}
+
+// init mongoDB設定を環境変数から取得します
+func (conf *mongoConf) init() {
+	err := envconfig.Process("mongo", conf)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+}

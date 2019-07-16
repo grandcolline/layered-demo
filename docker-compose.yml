@@ -12,26 +12,24 @@ services:
       - /go/src/github.com/grandcolline/layered-demo/.docker/
       - /go/src/github.com/grandcolline/layered-demo/.git/
     environment:
-      # --- MySQLの設定 ---
-      MYSQL_HOST: "mysql"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: ""
-      MYSQL_DATABASE: "app"
-      MYSQL_LOGMODE: "true"
-      MYSQL_AUTOMIGRATE: "true"
+      # --- MongoDBの設定 ---
+      MONGO_HOST: "mongo"
+      MONGO_USER: "root"
+      MONGO_PASSWORD: "root"
+      MONGO_DATABASE: "app"
     ports:
       - 8080:8080
     depends_on:
-      - mysql
+      - mongo
 
-  # MySQL (データベース)
-  mysql:
-    image: mysql:5.7
+  # MONGO（データベース）
+  mongo:
+    image: mongo
     environment:
-      MYSQL_DATABASE: "app"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    volumes:
-      - .docker/mysql/data:/var/lib/mysql:cached
-      - .docker/mysql/conf:/etc/mysql/conf.d:cached
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
     ports:
-      - 3306:3306
+      - 27017:27017
+    volumes:
+      - .docker/mongo/data:/data/db
+      - .docker/mongo/configdb:/data/configdb
